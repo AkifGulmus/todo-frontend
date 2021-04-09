@@ -1,0 +1,15 @@
+language: node_js
+
+node_js:
+  - "12.13.1"
+
+services:
+  - docker
+
+script: yarn test:unit
+
+deploy:
+  - provider: script
+    script: bash deploy-frontend.sh
+    on:
+      all_branches: true

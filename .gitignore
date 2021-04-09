@@ -1,0 +1,4 @@
+**/node_modules
+pact/logs
+pact/pacts
+coverage
