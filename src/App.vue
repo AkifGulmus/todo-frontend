@@ -1,23 +1,21 @@
 <template>
   <div id="app">
     <div class="layout">
-      <div class="biseyDiv">
-        <add-item> </add-item>
-        <todo-items></todo-items>
-      </div>
+      <todo-form />
+      <list />
     </div>
   </div>
 </template>
 
 <script>
-import TodoItems from "./components/TodoItems";
-import AddItem from "./components/AddItem.vue";
+import TodoForm from "./components/Form";
+import List from "./components/List";
 
 export default {
   name: "App",
   components: {
-    AddItem,
-    TodoItems,
+    List,
+    TodoForm,
   },
   metaInfo: {
     title: "Default Title",
@@ -39,9 +37,6 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-
-.biseyDiv {
   margin: 0 1rem 0 1rem;
 }
 

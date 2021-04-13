@@ -5,7 +5,7 @@ const headless = process.env.headless_chrome.toLowerCase() === "true";
 
 beforeSuite(async () => {
   await openBrowser({
-    headless: true,
+    headless: false,
     args: [
       "--disable-gpu",
       "--disable-dev-shm-usage",
@@ -24,7 +24,7 @@ afterSuite(async () => {
 });
 
 step("When I go to the app, I should see an empty todo form", async () => {
-  await goto("http://34.123.28.194/");
+  await goto("http://34.70.196.7/");
   const inputText = await $("#todoInput");
   const addButton = await $("#addButton");
   expect(inputText).toBeTruthy();

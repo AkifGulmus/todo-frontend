@@ -1,12 +1,14 @@
 import { shallowMount } from "@vue/test-utils";
-import AddItem from "../../src/components/AddItem.vue";
+import Form from "../../src/components/Form.vue";
 require("jest-fetch-mock").enableMocks();
 
+const client = require("../../client");
+
 describe("Rendering properly and having the correct elements", () => {
+  const spy = jest.spyOn(client, "addItem");
   let wrapper;
   beforeEach(() => {
-    fetch.resetMocks();
-    wrapper = shallowMount(AddItem, {});
+    wrapper = shallowMount(Form, {});
   });
 
   afterEach(() => {
@@ -25,5 +27,6 @@ describe("Rendering properly and having the correct elements", () => {
     const addItemButtons = wrapper.findAll("#addButton");
     expect(addItemButtons).toHaveLength(1);
     addItemButtons.at(0).trigger("click");
+    expect(spy).toHaveBeenCalledTimes(1);
   });
 });

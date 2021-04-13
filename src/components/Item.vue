@@ -1,6 +1,6 @@
 <template>
   <div class="todoDiv">
-    <p @click="changeTodoStatus()" v-bind:class="{ todoItemDone: isDone }">
+    <p @click="changeStatus()" v-bind:class="{ todoItemDone: isDone }">
       {{ todo.text }}
     </p>
     <div class="buttonsClass">
@@ -8,9 +8,9 @@
         type="checkbox"
         id="checkbox"
         v-model="checked"
-        @click="changeTodoStatus"
+        @click="changeStatus"
       />
-      <button @click="deleteItem(todo.text)" type="submit" id="deleteButton">
+      <button @click="remove(todo.text)" type="submit" id="deleteButton">
         Delete Item
       </button>
     </div>
@@ -27,13 +27,13 @@ export default {
   },
   props: ["todo"],
   methods: {
-    changeTodoStatus() {
+    changeStatus() {
       this.isDone = !this.isDone;
       this.checked = !this.checked;
-      this.$emit("todo-updated", JSON.parse(JSON.stringify(this.todo)));
+      this.$emit("todoStatusUpdated", JSON.parse(JSON.stringify(this.todo)));
     },
-    deleteItem() {
-      this.$emit("todo-deleted", JSON.parse(JSON.stringify(this.todo)));
+    remove() {
+      this.$emit("todoDeleted", JSON.parse(JSON.stringify(this.todo)));
     },
   },
 };

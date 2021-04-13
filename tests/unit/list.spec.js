@@ -1,9 +1,8 @@
 import { shallowMount } from "@vue/test-utils";
-import TodoItems from "../../src/components/TodoItems.vue";
-require("jest-fetch-mock").enableMocks();
+import List from "../../src/components/List.vue";
 
-jest.mock("axios", () => ({
-  get: () =>
+jest.mock("../../client", () => ({
+  getTodos: () =>
     Promise.resolve({
       data: [
         {
@@ -13,16 +12,16 @@ jest.mock("axios", () => ({
         },
       ],
     }),
-  delete: () =>
+  deleteTodo: () =>
     Promise.resolve({
-      data: [],
+      status: 202,
     }),
 }));
 
 describe("Rendering and functioning correctly", () => {
   let wrapper;
   beforeEach(() => {
-    wrapper = shallowMount(TodoItems, {});
+    wrapper = shallowMount(List, {});
   });
 
   afterEach(() => {
@@ -40,22 +39,11 @@ describe("Rendering and functioning correctly", () => {
   });
 
   it("removes todo item when deleteTodo() is called", async () => {
-    wrapper.setData({
-      todos: [
-        {
-          todoID: "412fff91-8a78-4214-82c4-2381eedfecdf",
-          text: "Buy some milk",
-          done: false,
-        },
-      ],
-    });
-
     await wrapper.vm.deleteTodo({
       todoID: "412fff91-8a78-4214-82c4-2381eedfecdf",
       text: "Buy some milk",
       done: false,
     });
-
     expect(wrapper.vm.todos).toStrictEqual([]);
   });
 });

@@ -4,12 +4,12 @@
       <input
         id="todoInput"
         ref="todoInput"
-        v-model="newTodo"
-        @keydown.enter.prevent="itemAdded(newTodo)"
+        v-model="todo"
+        @keydown.enter.prevent="addItem(todo)"
         placeholder="What to do?"
         type="text"
       />
-      <button @click.prevent="itemAdded(newTodo)" type="submit" id="addButton">
+      <button @click.prevent="addItem(todo)" type="submit" id="addButton">
         Add Item
       </button>
     </form>
@@ -17,31 +17,19 @@
 </template>
 
 <script>
-import axios from "axios";
+import { addItem } from "../../client.js";
 export default {
   async mounted() {
     this.$refs["todoInput"].focus();
   },
   data() {
     return {
-      newTodo: "",
+      todo: "",
     };
   },
   methods: {
-    async itemAdded(newTodo) {
-      if (newTodo.length > 1) {
-        await axios.post(
-          `${process.env.VUE_APP_BACKEND_BASE_URL}/todo-items`,
-          {
-            text: `${newTodo}`,
-            done: false,
-          },
-          {
-            headers: { "Content-Type": "application/json" },
-          }
-        );
-        window.location.reload();
-      }
+    async addItem(todo) {
+      addItem(todo);
     },
   },
 };
