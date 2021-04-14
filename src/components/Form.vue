@@ -29,7 +29,8 @@ export default {
   },
   methods: {
     async addItem(todo) {
-      addItem(todo);
+      await addItem(todo);
+      location.reload();
     },
   },
 };
